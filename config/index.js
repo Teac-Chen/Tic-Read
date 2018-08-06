@@ -4,7 +4,7 @@ module.exports = {
   client: {
     dev: {
       host: '0.0.0.0',
-      port: 1998,
+      port: 2018,
       path: path.resolve(__dirname, '../dist'),
       publicPath: '/static/',
       favicon: path.resolve(__dirname, '../favicon.ico'),
@@ -18,9 +18,9 @@ module.exports = {
   },
   server: {
     host: 'localhost',
-    port: 2000,
+    port: 2020,
     devHost: 'localhost',
-    devPort: 1998,
+    devPort: 2019,
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/static'
   }

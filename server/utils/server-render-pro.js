@@ -1,7 +1,6 @@
 const Router = require('koa-better-router')
 const ReactSSR = require('react-dom/server')
 const fs = require('fs')
-const path = require('path')
 
 const staticPath = require('./static-path')
 const bundle = require('../../dist/js/server-entry').default

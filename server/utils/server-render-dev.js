@@ -19,7 +19,7 @@ serverCompiler.watch({}, (err, stats) => {
   if (err) {
     throw err
   }
-  
+
   stats = stats.toJson()
   stats.errors.forEach(err => console.error('webpack err ===>', err))
   stats.warnings.forEach(warn => console.warn('webpack warn ===>', warn))
@@ -36,8 +36,8 @@ serverCompiler.watch({}, (err, stats) => {
   serverBundle = m.exports.default
 })
 
-function getModuleFromString(bundle, filename) {
-  const m = { exports: {}}
+function getModuleFromString (bundle, filename) {
+  const m = { exports: {} }
 
   const wrapper = NativeModule.wrap(bundle)
   const script = new vm.Script(wrapper, {
