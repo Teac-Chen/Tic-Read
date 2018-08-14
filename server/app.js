@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
 })
 
 if (!isDev) {
-  require('./utils/server-render-pro')(app)
+  require('./utils/server-render-pro')(app, config)
 } else {
   require('./utils/server-render-dev')(app, config)
 }

@@ -38,16 +38,24 @@
     "rimraf": "^2.6.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cross-fetch": "^2.2.2",
     "kind-of": "^6.0.2",
     "koa": "^2.5.2",
     "koa-better-router": "^2.1.1",
     "koa-proxies": "^0.7.0",
     "koa-send": "^5.0.0",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

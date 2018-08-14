@@ -4,17 +4,27 @@ const fs = require('fs')
 
 const staticPath = require('./static-path')
 const bundle = require('../../dist/js/server-entry').default
-const config = require('../../config').server
 
-const html = fs.readFileSync(`${config.path}/index.html`, 'utf8')
 
-module.exports = app => {
+module.exports = (app, config) => {
   const router = Router().loadMethods()
+  const html = fs.readFileSync(`${config.path}/index.html`, 'utf8')
 
   app.use(staticPath(config.path, config.publicPath))
 
-  router.get('*', ctx => {
-    ctx.body = html.replace('<!--App-->', ReactSSR.renderToString(bundle))
+  router.get('*', (ctx, next) => {
+    const routerContext = {}
+    const app = bundle(routerContext, ctx.url)
+    ctx.body = html.replace('<!--App-->', ReactSSR.renderToString(app))
+
+    if (routerContext.url) {
+      ctx.status = 301
+      ctx.redirect(routerContext.url)
+
+      return next()
+    }
+
+    return next()
   })
 
   app.use(router.middleware())

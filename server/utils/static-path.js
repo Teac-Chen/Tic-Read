@@ -17,18 +17,32 @@ module.exports = (root, pathname, options) => {
   pathname = pathname || '/'
 
   if (kindOf(pathname) !== 'string') {
-    throw new TypeError('koa-better-serve: expect `pathname` to be string')
+    throw new TypeError('static-path: expect `pathname` to be string')
   }
+  pathname = pathname.replace(/(\/)/g, '\\$1')
+  const reg = new RegExp(`^(${pathname})`)
 
   return async (ctx, next) => {
-    const filepath = ctx.path.replace(pathname, '')
+    if (ctx.method !== 'GET' && ctx.method !== 'HEAD') return next()
 
-    if (ctx.method !== 'GET') return next()
+    let filepath
+    if (reg.test(ctx.path)) {
+      filepath = ctx.path.replace(reg, '')
+    } else {
+      return next()
+    }
 
-    const file = await send(ctx, filepath, options)
 
-    if (!file) {
-      next()
+    try {
+      const file = await send(ctx, filepath, options)
+
+      if (!file) {
+        return next()
+      }
+    } catch (err) {
+      if (err.status !== 404) {
+        throw err
+      }
     }
   }
 }

@@ -1,6 +1,12 @@
 import React from 'react';
-import { App, HotApp } from './App.jsx'; // eslint-disable-line
+import { StaticRouter } from 'react-router-dom';
+
+import { App, HotApp } from 'views/App';
 
 const Root = process.env === 'development' ? HotApp : App;
 
-export default <Root />;
+export default (routerContext, url) => (
+  <StaticRouter context={routerContext} location={url}>
+    <Root />
+  </StaticRouter>
+);

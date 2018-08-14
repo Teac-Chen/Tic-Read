@@ -66,9 +66,19 @@ module.exports = (app, config) => {
       return next()
     }
 
-    const res = await axios.get(`http://${config.host}:${config.port}${config.publicPath}/index.html`)
+    const res = await axios.get(`http://${config.devHost}:${config.devPort}${config.publicPath}/index.html`)
 
-    ctx.body = res.data.replace('<!--App-->', ReactSSR.renderToString(serverBundle))
+    const routerContext = {}
+    const app = serverBundle(routerContext, ctx.url)
+
+    ctx.body = res.data.replace('<!--App-->', ReactSSR.renderToString(app))
+
+    if (routerContext.url) {
+      ctx.status = 302
+      ctx.redirect(routerContext.url)
+
+      return next()
+    }
 
     return next()
   })

@@ -20,7 +20,7 @@ module.exports = {
     host: 'localhost',
     port: 2020,
     devHost: 'localhost',
-    devPort: 2019,
+    devPort: 2018,
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/static'
   }
